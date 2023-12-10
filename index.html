@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
     body{
@@ -16,24 +15,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
         const apiUrl = 'https://gist.githubusercontent.com/khansgithub/4f0caa91d827404b23224748395749bb/raw/c77f69462c887f8954de5e4532363fd9388ad18d/test';
-
-            // var firstRow = $('<tr class="">')
-            //     .append($(`<td colspan="" class="align-middle" id=${timestamp}>`).text(timestamp));
-
-            // // Create the second row
-            // var secondRow = $('<tr>')
-            //         .append($('<td class="align-middle">')
-            //             .append($('<table class="table mb-0">')
-            //                 .append($('<thead>').append('<thK</th> <th>E</th>'))
-            //                 .append($('<tbody>')
-            //                     .append($('<tr>')
-            //                         .append($('<td>').text(k))
-            //                         .append($('<td>').text(e))
-            //                     )
-            //                 )
-            //             )
-            //         );
-            // return [firstRow, secondRow];
 
         $( document ).ready( async function() {
             function create_rows(timestamp, k, e){
@@ -86,7 +67,6 @@
             function render_cells(){
                 append_data = ""
                 for (const timestamp in data) {
-                    // append_data += create_rows(timestamp, data[timestamp]['k'], data[timestamp]['e']);
                     append_data += create_rows(timestamp, data[timestamp]['k'], data[timestamp]['e']);               
                 }
                 $("tbody").append(append_data)
@@ -94,20 +74,14 @@
             
             let data = await $.getJSON( apiUrl);
             window.data = data
-            console.log("data loaded")
           
             render_cells()
 
             $(".timestamp").on("click", (e) => {
                 window.x = e
                 x = "#under_" + e.target.parentElement.id.slice(3)
-                console.log(x)
                 $(x).toggleClass("d-none")
             });
-
-            console.log("done")
-
-
         });
     </script>
 
@@ -120,20 +94,6 @@
             <div class="col-5">
                 <table class="table table-light text-center">
                     <tbody>
-                        <!-- <tr class="">
-                            <td colspan="" class="align-middle">00:00:00</td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle">
-                                <table class="table mb-0">
-                                    <thead><th>K</th> <th>E</th></thead>
-                                    <tbody>
-                                        <td>A</td>
-                                        <td>B</td>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr> -->
                     </tbody>
                 </table>
             </div>
