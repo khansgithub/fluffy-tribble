@@ -7,9 +7,9 @@
     <style>
         body {
             background-color: #141414;
-            /*color: whitesmoke*/
         }
-        .loading_screen{
+
+        .loading_screen {
             background-color: #141414;
             color: whitesmoke;
         }
@@ -80,7 +80,7 @@
                 $("tbody").append(append_data)
             }
 
-            function ready_page(){
+            function ready_page() {
                 $("div.main_scren").removeClass("d-none")
                 $("div.loading_screen").addClass("d-none")
             }
@@ -104,11 +104,10 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-
-
     <div class="container-fluid position-absolute top-0 start-0 w-100 h-100 text-center loading_screen">
         <p class="align-middle d-inline-block" style="margin-top: 50vh">loading</p>
     </div>
+
     <div class="container-fluid d-none main_scren">
         <div class="row">
             <div class="col"></div>
