@@ -79,6 +79,7 @@
             $(".timestamp").on("click", (e) => {
                 under_row = "#under_" + e.target.parentElement.id.slice(3)
                 $(under_row).toggleClass("d-none")
+                $(e.target).toggleClass("table-active")
             });
 
         });
@@ -91,7 +92,7 @@
         <div class="row">
             <div class="col"></div>
             <div class="col-5">
-                <table class="table table-light text-center table-striped">
+                <table class="table table-light text-center table-striped table-hover">
                     <tbody>
                     </tbody>
                 </table>
