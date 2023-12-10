@@ -4,7 +4,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
     body{
-        background-color: black;
+        background-color: #141414;
         color: whitesmoke
     }
     </style>
@@ -14,13 +14,10 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
-        const apiUrl = 'https://gist.githubusercontent.com/khansgithub/4f0caa91d827404b23224748395749bb/raw/c77f69462c887f8954de5e4532363fd9388ad18d/test';
+        const data_url = 'https://gist.githubusercontent.com/khansgithub/4f0caa91d827404b23224748395749bb/raw/c77f69462c887f8954de5e4532363fd9388ad18d/test';
 
         $( document ).ready( async function() {
             function create_rows(timestamp, k, e){
-                timestamp_id = timestamp.replaceAll(":", "-")
-                // console.log(timestamp, k, e)
-
                 function create_under_rows(list){
                     rows = ""
                     list.forEach(line => {
@@ -30,11 +27,14 @@
                     return rows
                 }
 
+
+                timestamp_id = timestamp.replaceAll(":", "-")
+
                 k_lines = create_under_rows(k)
                 e_lines = create_under_rows(e)
                 
-                foo = `
-                    <tr class="timestamp align-middle" id="ts_${timestamp_id}">
+                return `
+                    <tr role=button class="timestamp align-middle" id="ts_${timestamp_id}">
                         <td>${timestamp}</td>
                     </tr>
                     <tr class="timestamp_under under d-none"  id="under_${timestamp_id}">
@@ -62,26 +62,26 @@
                         </td>
                     </tr>
                 `
-                return foo
             }
+
             function render_cells(){
                 append_data = ""
-                for (const timestamp in data) {
-                    append_data += create_rows(timestamp, data[timestamp]['k'], data[timestamp]['e']);               
-                }
+                for (const timestamp in data)
+                    append_data += create_rows(timestamp, data[timestamp]['k'], data[timestamp]['e']);
+
                 $("tbody").append(append_data)
             }
             
-            let data = await $.getJSON( apiUrl);
-            window.data = data
+            let data = await $.getJSON(data_url);
           
             render_cells()
 
             $(".timestamp").on("click", (e) => {
-                window.x = e
-                x = "#under_" + e.target.parentElement.id.slice(3)
-                $(x).toggleClass("d-none")
+                under_row = "#under_" + e.target.parentElement.id.slice(3)
+                $(under_row).toggleClass("d-none")
+                context.last_clicked = under_row
             });
+
         });
     </script>
 
@@ -92,7 +92,7 @@
         <div class="row">
             <div class="col"></div>
             <div class="col-5">
-                <table class="table table-light text-center">
+                <table class="table table-light text-center table-striped">
                     <tbody>
                     </tbody>
                 </table>
