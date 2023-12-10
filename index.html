@@ -1,28 +1,36 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
-    body{
-        background-color: #141414;
-        /*color: whitesmoke*/
-    }
+        body {
+            background-color: #141414;
+            /*color: whitesmoke*/
+        }
+        .loading_screen{
+            background-color: #141414;
+            color: whitesmoke;
+        }
     </style>
     <title>title</title>
-  </head>
-  <body>
+</head>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<body>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
         const data_url = 'https://gist.githubusercontent.com/khansgithub/4f0caa91d827404b23224748395749bb/raw/c77f69462c887f8954de5e4532363fd9388ad18d/test';
 
-        $( document ).ready( async function() {
-            function create_rows(timestamp, k, e){
-                function create_under_rows(list){
+        $(document).ready(async function () {
+            function create_rows(timestamp, k, e) {
+                function create_under_rows(list) {
                     rows = ""
                     list.forEach(line => {
                         if (!line) return;
-                        rows  += `<tr><td class="col-6">${line}</td><tr>`
+                        rows += `<tr><td class="col-6">${line}</td><tr>`
                     });
                     return rows
                 }
@@ -32,7 +40,7 @@
 
                 k_lines = create_under_rows(k)
                 e_lines = create_under_rows(e)
-                
+
                 return `
                     <tr role=button class="timestamp align-middle" id="ts_${timestamp_id}">
                         <td>${timestamp}</td>
@@ -64,16 +72,22 @@
                 `
             }
 
-            function render_cells(){
+            function render_cells() {
                 append_data = ""
                 for (const timestamp in data)
                     append_data += create_rows(timestamp, data[timestamp]['k'], data[timestamp]['e']);
 
                 $("tbody").append(append_data)
             }
-            
+
+            function ready_page(){
+                $("div.main_scren").removeClass("d-none")
+                $("div.loading_screen").addClass("d-none")
+            }
+
             let data = await $.getJSON(data_url);
-          
+
+            ready_page()
             render_cells()
 
             $(".timestamp").on("click", (e) => {
@@ -86,9 +100,16 @@
     </script>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
-    <div class="container-flex">
+
+
+    <div class="container-fluid position-absolute top-0 start-0 w-100 h-100 text-center loading_screen">
+        <p class="align-middle d-inline-block" style="margin-top: 50vh">loading</p>
+    </div>
+    <div class="container-fluid d-none main_scren">
         <div class="row">
             <div class="col"></div>
             <div class="col-5">
@@ -102,4 +123,5 @@
     </div>
 
 </body>
+
 </html>
