@@ -43,17 +43,17 @@
                                 <div class="row">
                                     <div class="col m-0 p-0">
                                         <table class="table table-hover mb-0">
-                                            <thead><th>K</th></thead>
+                                            <thead><th>E</th></thead>
                                             <tbody>
-                                                ${k_lines}
+                                                ${e_lines}
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="col m-0 p-0">
                                         <table class="table table-hover mb-0">
-                                            <thead><th>E</th></thead>
+                                            <thead><th>K</th></thead>
                                             <tbody>
-                                                ${e_lines}
+                                                ${k_lines}
                                             </tbody>
                                         </table>
                                     </div>
@@ -79,7 +79,6 @@
             $(".timestamp").on("click", (e) => {
                 under_row = "#under_" + e.target.parentElement.id.slice(3)
                 $(under_row).toggleClass("d-none")
-                context.last_clicked = under_row
             });
 
         });
